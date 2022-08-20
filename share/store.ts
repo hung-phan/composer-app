@@ -1,4 +1,5 @@
-import { Context, HYDRATE, MakeStore, createWrapper } from "next-redux-wrapper";
+import produce from "immer";
+import { HYDRATE, MakeStore, createWrapper } from "next-redux-wrapper";
 import { DefaultRootState } from "react-redux";
 import {
   AnyAction,
@@ -11,10 +12,13 @@ import {
 import thunkMiddleware, { ThunkMiddleware } from "redux-thunk";
 
 import {
-  State as TodoState,
-  mountPoint as todoMountPoint,
-  reducer as todoReducer,
-} from "../share/components/todo/logicBundle";
+  State as TemplateEngineState,
+  selectors,
+  mountPoint as templateEngineMountPoint,
+  reducer as templateEngineReducer,
+} from "./domain/engine/coreEngineStateStore";
+import { convertToClass, encode } from "./domain/engine/serializers";
+import { Element } from "./domain/interfaces";
 
 export const middlewares = [
   thunkMiddleware as ThunkMiddleware<DefaultRootState, AnyAction>,
@@ -22,41 +26,53 @@ export const middlewares = [
 
 export const enhancers = [];
 
-if (process.env.ENVIRONMENT === "client") {
-  if (process.env.NODE_ENV === "development") {
-    const { createLogger } = require("redux-logger");
-
-    middlewares.push(createLogger({ level: "info" }));
-  }
-
+if (
+  process.env.ENVIRONMENT === "client" &&
+  process.env.NODE_ENV === "development"
+) {
   if ((window as any).__REDUX_DEVTOOLS_EXTENSION__) {
     enhancers.push((window as any).__REDUX_DEVTOOLS_EXTENSION__());
   }
 }
 
 export interface RootState {
-  [todoMountPoint]: TodoState;
+  [templateEngineMountPoint]: TemplateEngineState;
 }
 
 const applicationReducer = combineReducers({
-  [todoMountPoint]: todoReducer,
+  [templateEngineMountPoint]: templateEngineReducer,
 });
 
-export const makeStore: MakeStore<Store<RootState>> = (_: Context) =>
+export const makeStore: MakeStore<Store<RootState>> = () =>
   createStore(
-    (state: RootState, action: AnyAction) => {
-      switch (action.type) {
-        case HYDRATE:
-          return { ...state, ...action.payload };
-        default:
-          return applicationReducer(state, action);
-      }
-    },
-    {}, // preloadedState
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    (state: RootState, action: AnyAction) =>
+      produce(state, (draft) => {
+        switch (action.type) {
+          case HYDRATE:
+            Object.assign(draft, action.payload);
+            break;
+
+          default:
+            return applicationReducer(draft, action);
+        }
+      }),
+    { [templateEngineMountPoint]: {} }, // preloadedState
     compose(applyMiddleware(...middlewares), ...enhancers)
   );
 
 export const wrapper = createWrapper<Store<RootState>>(makeStore, {
-  serializeState: JSON.stringify,
-  deserializeState: JSON.parse,
+  serializeState: encode,
+  deserializeState: (encodedData: string) => {
+    const state = JSON.parse(encodedData);
+
+    const templateEngineState = selectors.getState(state);
+
+    for (const [key, value] of Object.entries(templateEngineState)) {
+      templateEngineState[key].element = convertToClass<Element>(value.element);
+    }
+
+    return state;
+  },
 });

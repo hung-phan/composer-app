@@ -1,0 +1,631 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`coreEngine engineDispatch should update the store correctly 1`] = `
+Object {
+  "templateEngine": Object {
+    "@@ENGINE_ROOT_ID": Object {
+      "childs": Array [
+        "text_element",
+        "image_element",
+        "button_element",
+        "placeholder_element",
+        "stateholder_element",
+      ],
+      "element": LayoutElement {
+        "elements": Array [
+          Element {
+            "id": "text_element",
+            "interfaceName": "TextElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "image_element",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "button_element",
+            "interfaceName": "ButtonElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "placeholder_element",
+            "interfaceName": "PlaceholderElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "stateholder_element",
+            "interfaceName": "StateHolderElement",
+            Symbol(immer-draftable): true,
+          },
+        ],
+        "id": "@@ENGINE_ROOT_ID",
+        "interfaceName": "LayoutElement",
+        Symbol(immer-draftable): true,
+      },
+    },
+    "button_element": Object {
+      "element": ButtonElement {
+        "id": "button_element",
+        "interfaceName": "ButtonElement",
+        "size": "lg",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "image_element": Object {
+      "element": ImageElement {
+        "id": "image_element",
+        "interfaceName": "ImageElement",
+        "src": "https://google.com",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "placeholder_element": Object {
+      "element": PlaceholderElement {
+        "id": "placeholder_element",
+        "interfaceName": "PlaceholderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "stateholder_element": Object {
+      "element": StateHolderElement {
+        "elementState": Object {
+          "data": Array [
+            "string_data",
+          ],
+        },
+        "id": "stateholder_element",
+        "interfaceName": "StateHolderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "text_element": Object {
+      "element": TextElement {
+        "id": "text_element",
+        "interfaceName": "TextElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+  },
+}
+`;
+
+exports[`coreEngine engineDispatch should update the store correctly 2`] = `
+Object {
+  "templateEngine": Object {
+    "@@ENGINE_ROOT_ID": Object {
+      "childs": Array [
+        "text_element",
+        "image_element",
+        "button_element",
+        "placeholder_element",
+        "stateholder_element",
+      ],
+      "element": LayoutElement {
+        "elements": Array [
+          Element {
+            "id": "text_element",
+            "interfaceName": "TextElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "image_element",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "button_element",
+            "interfaceName": "ButtonElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "placeholder_element",
+            "interfaceName": "PlaceholderElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "stateholder_element",
+            "interfaceName": "StateHolderElement",
+            Symbol(immer-draftable): true,
+          },
+        ],
+        "id": "@@ENGINE_ROOT_ID",
+        "interfaceName": "LayoutElement",
+        Symbol(immer-draftable): true,
+      },
+    },
+    "button_element": Object {
+      "element": ButtonElement {
+        "id": "button_element",
+        "interfaceName": "ButtonElement",
+        "size": "lg",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "image_element": Object {
+      "element": ImageElement {
+        "id": "image_element",
+        "interfaceName": "ImageElement",
+        "src": "https://amazon.com",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "placeholder_element": Object {
+      "element": PlaceholderElement {
+        "id": "placeholder_element",
+        "interfaceName": "PlaceholderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "stateholder_element": Object {
+      "element": StateHolderElement {
+        "elementState": Object {
+          "data": Array [
+            "string_data",
+          ],
+        },
+        "id": "stateholder_element",
+        "interfaceName": "StateHolderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "text_element": Object {
+      "element": TextElement {
+        "id": "text_element",
+        "interfaceName": "TextElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+  },
+}
+`;
+
+exports[`coreEngine engineDispatch should update the store correctly 3`] = `
+Object {
+  "templateEngine": Object {
+    "@@ENGINE_ROOT_ID": Object {
+      "childs": Array [
+        "text_element",
+        "image_element",
+        "button_element",
+        "placeholder_element",
+        "stateholder_element",
+      ],
+      "element": LayoutElement {
+        "elements": Array [
+          Element {
+            "id": "text_element",
+            "interfaceName": "TextElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "image_element",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "button_element",
+            "interfaceName": "ButtonElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "placeholder_element",
+            "interfaceName": "LayoutElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "stateholder_element",
+            "interfaceName": "StateHolderElement",
+            Symbol(immer-draftable): true,
+          },
+        ],
+        "id": "@@ENGINE_ROOT_ID",
+        "interfaceName": "LayoutElement",
+        Symbol(immer-draftable): true,
+      },
+    },
+    "button_element": Object {
+      "element": ButtonElement {
+        "id": "button_element",
+        "interfaceName": "ButtonElement",
+        "size": "lg",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "image_element": Object {
+      "element": ImageElement {
+        "id": "image_element",
+        "interfaceName": "ImageElement",
+        "src": "https://amazon.com",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "nested_placeholder_element_1": Object {
+      "element": PlaceholderElement {
+        "id": "nested_placeholder_element_1",
+        "interfaceName": "PlaceholderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "nested_placeholder_element_2": Object {
+      "element": PlaceholderElement {
+        "id": "nested_placeholder_element_2",
+        "interfaceName": "PlaceholderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "new_text_element": Object {
+      "element": TextElement {
+        "id": "new_text_element",
+        "interfaceName": "TextElement",
+        "message": "new text element message",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "placeholder_element": Object {
+      "childs": Array [
+        "new_text_element",
+        "nested_placeholder_element_1",
+        "nested_placeholder_element_2",
+      ],
+      "element": LayoutElement {
+        "elements": Array [
+          Element {
+            "id": "new_text_element",
+            "interfaceName": "TextElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "nested_placeholder_element_1",
+            "interfaceName": "PlaceholderElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "nested_placeholder_element_2",
+            "interfaceName": "PlaceholderElement",
+            Symbol(immer-draftable): true,
+          },
+        ],
+        "id": "placeholder_element",
+        "interfaceName": "LayoutElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "stateholder_element": Object {
+      "element": StateHolderElement {
+        "elementState": Object {
+          "data": Array [
+            "string_data",
+          ],
+        },
+        "id": "stateholder_element",
+        "interfaceName": "StateHolderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "text_element": Object {
+      "element": TextElement {
+        "id": "text_element",
+        "interfaceName": "TextElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+  },
+}
+`;
+
+exports[`coreEngine engineDispatch should update the store correctly 4`] = `
+Object {
+  "templateEngine": Object {
+    "@@ENGINE_ROOT_ID": Object {
+      "childs": Array [
+        "text_element",
+        "image_element",
+        "button_element",
+        "placeholder_element",
+        "stateholder_element",
+      ],
+      "element": LayoutElement {
+        "elements": Array [
+          Element {
+            "id": "text_element",
+            "interfaceName": "TextElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "image_element",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "button_element",
+            "interfaceName": "ButtonElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "placeholder_element",
+            "interfaceName": "LayoutElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "stateholder_element",
+            "interfaceName": "StateHolderElement",
+            Symbol(immer-draftable): true,
+          },
+        ],
+        "id": "@@ENGINE_ROOT_ID",
+        "interfaceName": "LayoutElement",
+        Symbol(immer-draftable): true,
+      },
+    },
+    "button_element": Object {
+      "element": ButtonElement {
+        "id": "button_element",
+        "interfaceName": "ButtonElement",
+        "size": "lg",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "image_element": Object {
+      "element": ImageElement {
+        "id": "image_element",
+        "interfaceName": "ImageElement",
+        "src": "https://amazon.com",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "nested_placeholder_element_2": Object {
+      "element": PlaceholderElement {
+        "id": "nested_placeholder_element_2",
+        "interfaceName": "PlaceholderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "new_image_element": Object {
+      "element": ImageElement {
+        "id": "new_image_element",
+        "interfaceName": "ImageElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "new_text_element": Object {
+      "element": TextElement {
+        "id": "new_text_element",
+        "interfaceName": "TextElement",
+        "message": "new text element message",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "placeholder_element": Object {
+      "childs": Array [
+        "new_text_element",
+        "nested_placeholder_element_2",
+        "new_image_element",
+      ],
+      "element": LayoutElement {
+        "elements": Array [
+          Element {
+            "id": "new_text_element",
+            "interfaceName": "TextElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "new_image_element",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "nested_placeholder_element_2",
+            "interfaceName": "PlaceholderElement",
+            Symbol(immer-draftable): true,
+          },
+        ],
+        "id": "placeholder_element",
+        "interfaceName": "LayoutElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "stateholder_element": Object {
+      "element": StateHolderElement {
+        "elementState": Object {
+          "data": Array [
+            "string_data",
+          ],
+        },
+        "id": "stateholder_element",
+        "interfaceName": "StateHolderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "text_element": Object {
+      "element": TextElement {
+        "id": "text_element",
+        "interfaceName": "TextElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+  },
+}
+`;
+
+exports[`coreEngine engineDispatch should update the store correctly 5`] = `
+Object {
+  "templateEngine": Object {
+    "@@ENGINE_ROOT_ID": Object {
+      "childs": Array [
+        "text_element",
+        "image_element",
+        "button_element",
+        "placeholder_element",
+        "stateholder_element",
+      ],
+      "element": LayoutElement {
+        "elements": Array [
+          Element {
+            "id": "text_element",
+            "interfaceName": "TextElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "image_element",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "button_element",
+            "interfaceName": "ButtonElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "placeholder_element",
+            "interfaceName": "LayoutElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "stateholder_element",
+            "interfaceName": "StateHolderElement",
+            Symbol(immer-draftable): true,
+          },
+        ],
+        "id": "@@ENGINE_ROOT_ID",
+        "interfaceName": "LayoutElement",
+        Symbol(immer-draftable): true,
+      },
+    },
+    "button_element": Object {
+      "element": ButtonElement {
+        "id": "button_element",
+        "interfaceName": "ButtonElement",
+        "size": "lg",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "image_element": Object {
+      "element": ImageElement {
+        "id": "image_element",
+        "interfaceName": "ImageElement",
+        "src": "https://amazon.com",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "new_image_element": Object {
+      "element": ImageElement {
+        "id": "new_image_element",
+        "interfaceName": "ImageElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "new_image_element_1": Object {
+      "element": ImageElement {
+        "id": "new_image_element_1",
+        "interfaceName": "ImageElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "new_image_element_2": Object {
+      "element": ImageElement {
+        "id": "new_image_element_2",
+        "interfaceName": "ImageElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "new_text_element": Object {
+      "element": TextElement {
+        "id": "new_text_element",
+        "interfaceName": "TextElement",
+        "message": "new text element message",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "placeholder_element",
+    },
+    "placeholder_element": Object {
+      "childs": Array [
+        "new_text_element",
+        "new_image_element",
+        "new_image_element_1",
+        "new_image_element_2",
+      ],
+      "element": LayoutElement {
+        "elements": Array [
+          Element {
+            "id": "new_text_element",
+            "interfaceName": "TextElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "new_image_element",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "new_image_element_1",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+          Element {
+            "id": "new_image_element_2",
+            "interfaceName": "ImageElement",
+            Symbol(immer-draftable): true,
+          },
+        ],
+        "id": "placeholder_element",
+        "interfaceName": "LayoutElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "stateholder_element": Object {
+      "element": StateHolderElement {
+        "elementState": Object {
+          "data": Array [
+            "string_data",
+          ],
+        },
+        "id": "stateholder_element",
+        "interfaceName": "StateHolderElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+    "text_element": Object {
+      "element": TextElement {
+        "id": "text_element",
+        "interfaceName": "TextElement",
+        Symbol(immer-draftable): true,
+      },
+      "parent": "@@ENGINE_ROOT_ID",
+    },
+  },
+}
+`;

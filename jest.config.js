@@ -6,7 +6,6 @@ const createJestConfig = nextJest();
 // Any custom config you want to pass to Jest
 const customJestConfig = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
-  snapshotSerializers: ["enzyme-to-json/serializer"],
   testPathIgnorePatterns: [
     "<rootDir>/.next/",
     "<rootDir>/node_modules/",

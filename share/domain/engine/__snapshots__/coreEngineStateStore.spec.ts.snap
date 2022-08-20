@@ -1,0 +1,382 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`delElement 1`] = `Object {}`;
+
+exports[`delElement that is not connected to parent 1`] = `
+Object {
+  "@@ENGINE_ROOT_ID": Object {
+    "childs": Array [
+      "child_element_id_1",
+      "child_element_id_2",
+    ],
+    "element": Element {
+      "id": "element_id",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+  },
+  "child_element_id_1": Object {
+    "element": Element {
+      "id": "child_element_id_1",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+  "child_element_id_2": Object {
+    "element": Element {
+      "id": "child_element_id_2",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+  "child_element_id_3": Object {
+    "element": Element {
+      "id": "child_element_id_3",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+}
+`;
+
+exports[`delElement that is not connected to parent 2`] = `
+Object {
+  "@@ENGINE_ROOT_ID": Object {
+    "childs": Array [
+      "child_element_id_1",
+      "child_element_id_2",
+    ],
+    "element": Element {
+      "id": "element_id",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+  },
+  "child_element_id_1": Object {
+    "element": Element {
+      "id": "child_element_id_1",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+  "child_element_id_2": Object {
+    "element": Element {
+      "id": "child_element_id_2",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+  "child_element_id_3": Object {
+    "element": Element {
+      "id": "child_element_id_3",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+}
+`;
+
+exports[`delElement that is not connected to parent 3`] = `
+Object {
+  "@@ENGINE_ROOT_ID": Object {
+    "childs": Array [
+      "child_element_id_1",
+      "child_element_id_2",
+    ],
+    "element": Element {
+      "id": "element_id",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+  },
+  "child_element_id_1": Object {
+    "element": Element {
+      "id": "child_element_id_1",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+  "child_element_id_2": Object {
+    "element": Element {
+      "id": "child_element_id_2",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+}
+`;
+
+exports[`setElement 1`] = `
+Object {
+  "@@ENGINE_ROOT_ID": Object {
+    "childs": Array [
+      "element_id_1",
+      "element_id_2",
+    ],
+    "element": Element {
+      "id": "@@ENGINE_ROOT_ID",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+  },
+  "element_id_1": Object {
+    "element": Element {
+      "id": "element_id_1",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+  "element_id_2": Object {
+    "element": Element {
+      "id": "element_id_2",
+      "interfaceName": "PlaceholderElement",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+}
+`;
+
+exports[`setElement 2`] = `
+Object {
+  "@@ENGINE_ROOT_ID": Object {
+    "childs": Array [
+      "element_id_1",
+      "element_id_2",
+    ],
+    "element": Element {
+      "id": "@@ENGINE_ROOT_ID",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+  },
+  "element_id_1": Object {
+    "element": Element {
+      "id": "element_id_1",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+  "element_id_2": Object {
+    "childs": Array [
+      "element_id_3",
+      "element_id_4",
+    ],
+    "element": Element {
+      "id": "element_id_2",
+      "interfaceName": "ButtonElement",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "@@ENGINE_ROOT_ID",
+  },
+  "element_id_3": Object {
+    "element": Element {
+      "id": "element_id_3",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "element_id_2",
+  },
+  "element_id_4": Object {
+    "element": Element {
+      "id": "element_id_4",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "element_id_2",
+  },
+}
+`;
+
+exports[`template logic replaceElement should update state correctly 1`] = `
+Object {
+  "element_id_1": Object {
+    "element": Element {
+      "id": "element_id_1",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "parent_element_id",
+  },
+  "element_id_2_place_holder": Object {
+    "element": PlaceholderElement {
+      "id": "element_id_2_place_holder",
+      "interfaceName": "PlaceholderElement",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "parent_element_id",
+  },
+  "element_id_3": Object {
+    "childs": Array [
+      "element_id_4",
+    ],
+    "element": LayoutElement {
+      "elements": Array [
+        Element {
+          "id": "element_id_4",
+          "interfaceName": "Element",
+          Symbol(immer-draftable): true,
+        },
+      ],
+      "id": "element_id_3",
+      "interfaceName": "LayoutElement",
+      Symbol(immer-draftable): true,
+    },
+  },
+  "element_id_4": Object {
+    "element": Element {
+      "id": "element_id_4",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "element_id_3",
+  },
+  "parent_element_id": Object {
+    "childs": Array [
+      "element_id_1",
+      "element_id_2_place_holder",
+    ],
+    "element": LayoutElement {
+      "elements": Array [
+        Element {
+          "id": "element_id_1",
+          "interfaceName": "Element",
+          Symbol(immer-draftable): true,
+        },
+        Element {
+          "id": "element_id_2_place_holder",
+          "interfaceName": "Element",
+          Symbol(immer-draftable): true,
+        },
+      ],
+      "id": "parent_element_id",
+      "interfaceName": "LayoutElement",
+      Symbol(immer-draftable): true,
+    },
+  },
+}
+`;
+
+exports[`template logic replaceElement should work correctly 1`] = `
+Object {
+  "element_id_1": Object {
+    "element": Element {
+      "id": "element_id_1",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "parent_element_id",
+  },
+  "element_id_2_place_holder": Object {
+    "element": PlaceholderElement {
+      "id": "element_id_2_place_holder",
+      "interfaceName": "PlaceholderElement",
+      Symbol(immer-draftable): true,
+    },
+    "parent": undefined,
+  },
+  "element_id_3": Object {
+    "childs": Array [
+      "element_id_4",
+    ],
+    "element": LayoutElement {
+      "elements": Array [
+        Element {
+          "id": "element_id_4",
+          "interfaceName": "Element",
+          Symbol(immer-draftable): true,
+        },
+      ],
+      "id": "element_id_3",
+      "interfaceName": "LayoutElement",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "parent_element_id",
+  },
+  "element_id_4": Object {
+    "element": Element {
+      "id": "element_id_4",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "element_id_3",
+  },
+  "parent_element_id": Object {
+    "childs": Array [
+      "element_id_1",
+      "element_id_3",
+    ],
+    "element": LayoutElement {
+      "elements": Array [
+        Element {
+          "id": "element_id_1",
+          "interfaceName": "Element",
+          Symbol(immer-draftable): true,
+        },
+        Element {
+          "id": "element_id_3",
+          "interfaceName": "LayoutElement",
+          Symbol(immer-draftable): true,
+        },
+      ],
+      "id": "parent_element_id",
+      "interfaceName": "LayoutElement",
+      Symbol(immer-draftable): true,
+    },
+  },
+}
+`;
+
+exports[`template logic should update initial state correctly 1`] = `
+Object {
+  "element_id_1": Object {
+    "element": Element {
+      "id": "element_id_1",
+      "interfaceName": "Element",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "parent_element_id",
+  },
+  "element_id_2_place_holder": Object {
+    "element": PlaceholderElement {
+      "id": "element_id_2_place_holder",
+      "interfaceName": "PlaceholderElement",
+      Symbol(immer-draftable): true,
+    },
+    "parent": "parent_element_id",
+  },
+  "parent_element_id": Object {
+    "childs": Array [
+      "element_id_1",
+      "element_id_2_place_holder",
+    ],
+    "element": LayoutElement {
+      "elements": Array [
+        Element {
+          "id": "element_id_1",
+          "interfaceName": "Element",
+          Symbol(immer-draftable): true,
+        },
+        Element {
+          "id": "element_id_2_place_holder",
+          "interfaceName": "Element",
+          Symbol(immer-draftable): true,
+        },
+      ],
+      "id": "parent_element_id",
+      "interfaceName": "LayoutElement",
+      Symbol(immer-draftable): true,
+    },
+  },
+}
+`;

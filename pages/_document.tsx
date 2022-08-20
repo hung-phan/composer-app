@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import * as React from "react";
 
 class MyDocument extends Document {
   public render() {
