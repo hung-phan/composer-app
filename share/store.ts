@@ -1,53 +1,28 @@
-import produce from "immer";
+import { Middleware, configureStore } from "@reduxjs/toolkit";
+import { produce } from "immer";
 import { HYDRATE, MakeStore, createWrapper } from "next-redux-wrapper";
-import { DefaultRootState } from "react-redux";
-import {
-  AnyAction,
-  Store,
-  applyMiddleware,
-  combineReducers,
-  compose,
-  createStore,
-} from "redux";
-import thunkMiddleware, { ThunkMiddleware } from "redux-thunk";
+import { AnyAction, Store, StoreEnhancer, combineReducers } from "redux";
 
 import {
-  State as TemplateEngineState,
   selectors,
   mountPoint as templateEngineMountPoint,
   reducer as templateEngineReducer,
 } from "./domain/engine/coreEngineStateStore";
 import { convertToClass, encode } from "./domain/engine/serializers";
-import { Element } from "./domain/interfaces";
+import { Node } from "./domain/interfaces";
 
-export const middlewares = [
-  thunkMiddleware as ThunkMiddleware<DefaultRootState, AnyAction>,
-];
-
-export const enhancers = [];
-
-if (
-  process.env.ENVIRONMENT === "client" &&
-  process.env.NODE_ENV === "development"
-) {
-  if ((window as any).__REDUX_DEVTOOLS_EXTENSION__) {
-    enhancers.push((window as any).__REDUX_DEVTOOLS_EXTENSION__());
-  }
-}
-
-export interface RootState {
-  [templateEngineMountPoint]: TemplateEngineState;
-}
+export const middlewares: Middleware[] = [];
+export const enhancers: StoreEnhancer[] = [];
 
 const applicationReducer = combineReducers({
   [templateEngineMountPoint]: templateEngineReducer,
 });
 
+export type RootState = ReturnType<typeof applicationReducer>;
+
 export const makeStore: MakeStore<Store<RootState>> = () =>
-  createStore(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    (state: RootState, action: AnyAction) =>
+  configureStore({
+    reducer: (state: RootState, action: AnyAction) =>
       produce(state, (draft) => {
         switch (action.type) {
           case HYDRATE:
@@ -58,9 +33,15 @@ export const makeStore: MakeStore<Store<RootState>> = () =>
             return applicationReducer(draft, action);
         }
       }),
-    { [templateEngineMountPoint]: {} }, // preloadedState
-    compose(applyMiddleware(...middlewares), ...enhancers)
-  );
+    devTools:
+      process.env.ENVIRONMENT === "client" &&
+      process.env.NODE_ENV === "development",
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }).concat(...middlewares),
+    enhancers,
+  });
 
 export const wrapper = createWrapper<Store<RootState>>(makeStore, {
   serializeState: encode,
@@ -70,7 +51,7 @@ export const wrapper = createWrapper<Store<RootState>>(makeStore, {
     const templateEngineState = selectors.getState(state);
 
     for (const [key, value] of Object.entries(templateEngineState)) {
-      templateEngineState[key].element = convertToClass<Element>(value.element);
+      templateEngineState[key] = convertToClass<Node>(value);
     }
 
     return state;

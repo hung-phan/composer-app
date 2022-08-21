@@ -11,7 +11,7 @@ const customJestConfig = {
     "<rootDir>/node_modules/",
   ],
   collectCoverage: true,
-  collectCoverageFrom: ["{pages,server,share}/**/*.{js,jsx,ts,tsx}"],
+  collectCoverageFrom: ["{app,pages,server,share}/**/*.{js,jsx,ts,tsx}"],
 };
 
 // createJestConfig is exported in this way to ensure that next/jest can load the Next.js configuration, which is async

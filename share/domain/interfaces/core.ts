@@ -1,83 +1,159 @@
 import { Builder, IBuilder } from "builder-pattern";
-import { immerable } from "immer";
-import getNewId from "../../library/idGenerator";
+import { Patch, immerable } from "immer";
+import _ from "lodash";
+import { Action } from "redux";
+
+import { Id, getRandomUUID } from "../../library/idGenerator";
 
 export abstract class Serializable {
   [immerable] = true;
 
   abstract interfaceName: string;
+
+  static getInterfaceName<T extends Serializable>(this: new () => T): string {
+    return Builder(this).build().interfaceName;
+  }
+
+  static builder<T extends Serializable>(this: new () => T): IBuilder<T> {
+    return Builder(this) as IBuilder<T>;
+  }
 }
 
 export class Method extends Serializable {
   interfaceName = "Method";
-
-  static getInterfaceName() {
-    return this.builder().build().interfaceName;
-  }
-
-  static builder(): IBuilder<Method> {
-    return Builder(Method);
-  }
 }
-
-export type Id = string;
 
 export class Element extends Serializable {
   interfaceName = "Element";
 
-  id: Id = getNewId();
+  id: Id = getRandomUUID();
 
   class?: string;
-  stateId?: string;
+  stateId?: Id;
 
   onCreate?: Method[];
   onDestroy?: Method[];
+}
 
-  static getInterfaceName() {
-    return this.builder().build().interfaceName;
+export class Node extends Serializable {
+  interfaceName = "Node";
+
+  parent?: Id;
+  childs?: { [key: Id]: boolean };
+  element: Element;
+
+  setParent(id?: Id): void {
+    if (id === undefined) {
+      delete this.parent;
+      return;
+    }
+
+    this.parent = id;
   }
 
-  static builder(): IBuilder<Element> {
-    return Builder(Element);
+  hasChild(id: Id): boolean {
+    if (this.childs === undefined) {
+      return false;
+    }
+
+    return id in this.childs;
+  }
+
+  addChild(id: Id): void {
+    if (this.childs === undefined) {
+      this.childs = {};
+    }
+
+    this.childs[id] = true;
+  }
+
+  removeChild(id: Id): void {
+    if (this.childs === undefined) {
+      return;
+    }
+
+    delete this.childs[id];
+
+    if (_.isEmpty(this.childs)) {
+      delete this.childs;
+    }
+  }
+
+  removeAllChild(): void {
+    delete this.childs;
+  }
+
+  replaceChildElement(oldChildId: Id, childElement: Element) {
+    for (const [key, value] of Object.entries(this.element)) {
+      if (value instanceof Element && value.id === oldChildId) {
+        this.element[key] = childElement;
+        return;
+      } else if (_.isArray(value)) {
+        for (let index = value.length - 1; index >= 0; index--) {
+          if (
+            value[index] instanceof Element &&
+            value[index].id === oldChildId
+          ) {
+            value[index] = childElement;
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  operateElementInList(
+    childId: Id,
+    func: (index: number, arr: Element[]) => void
+  ) {
+    for (const value of Object.values(this.element)) {
+      if (_.isArray(value)) {
+        for (let index = value.length - 1; index >= 0; index--) {
+          if (value[index] instanceof Element && value[index].id === childId) {
+            func(index, value);
+
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  addChildElementInList(childId: Id, childElements: Element[]) {
+    this.operateElementInList(childId, (__: number, arr: Element[]) => {
+      arr.push(...childElements);
+    });
+  }
+
+  replaceChildElementInList(childId: Id, childElements: Element[]) {
+    this.operateElementInList(childId, (index: number, arr: Element[]) => {
+      arr.splice(index, 1, ...childElements);
+    });
+  }
+
+  deleteChildElementInList(childId: Id) {
+    this.operateElementInList(childId, (index: number, arr: Element[]) => {
+      arr.splice(index, 1);
+    });
   }
 }
 
-export class PlaceholderElement extends Element {
-  interfaceName = "PlaceholderElement";
-
-  static builder(): IBuilder<PlaceholderElement> {
-    return Builder(PlaceholderElement);
-  }
+export class Placeholder extends Element {
+  interfaceName = "Placeholder";
 }
 
-export interface DataContainer<T> {
+export class DataContainer extends Element {
+  interfaceName = "DataContainer";
+}
+
+export interface RawDataContainer<T> {
   data: T;
-}
-
-export type ElementState<T> = DataContainer<T>
-
-export class StateHolderElement<T extends ElementState<any>> extends Element {
-  interfaceName = "StateHolderElement";
-
-  elementState: T;
-
-  static builder<T extends ElementState<any>>(): IBuilder<StateHolderElement<T>> {
-    return Builder(StateHolderElement<T>);
-  }
 }
 
 export class Response extends Serializable {
   interfaceName = "Response";
 
   methods: Method[];
-
-  static getInterfaceName() {
-    return this.builder().build().interfaceName;
-  }
-
-  static builder(): IBuilder<Response> {
-    return Builder(Response);
-  }
 
   static readonly EMPTY = Response.builder().methods([]).build();
 }
@@ -87,26 +163,26 @@ export type RequestType = "GET" | "POST";
 export class InvokeExternalMethod extends Method {
   interfaceName = "InvokeExternalMethod";
 
-  type: string;
-  payload: unknown;
+  action: Action;
+}
 
-  static getInterfaceName() {
-    return this.builder().build().interfaceName;
-  }
+export class UpdateStateMethod extends Method {
+  interfaceName = "UpdateStateMethod";
 
-  static builder(): IBuilder<InvokeExternalMethod> {
-    return Builder(InvokeExternalMethod);
-  }
+  stateElementId: Id;
+  patches: Patch[];
 }
 
 export class RenderElementMethod extends Method {
   interfaceName = "RenderElementMethod";
 
   element: Element;
+}
 
-  static builder(): IBuilder<RenderElementMethod> {
-    return Builder(RenderElementMethod);
-  }
+export class BatchRenderElementMethod extends Method {
+  interfaceName = "BatchRenderElementMethod";
+
+  elements: Element[];
 }
 
 export class UpdateElementMethod extends Method {
@@ -114,10 +190,6 @@ export class UpdateElementMethod extends Method {
 
   id: Id;
   element: Element;
-
-  static builder(): IBuilder<UpdateElementMethod> {
-    return Builder(UpdateElementMethod);
-  }
 }
 
 export class UpdateInListElementMethod extends Method {
@@ -125,13 +197,22 @@ export class UpdateInListElementMethod extends Method {
 
   id: Id;
   elements: Element[];
-
-  static builder(): IBuilder<UpdateInListElementMethod> {
-    return Builder(UpdateInListElementMethod);
-  }
 }
 
-export type RequestData<T> = DataContainer<T>
+export class DeleteInListElementMethod extends Method {
+  interfaceName = "DeleteInListElementMethod";
+
+  ids: Id[];
+}
+
+export class AddInListElementMethod extends Method {
+  interfaceName = "AddInListElementMethod";
+
+  id: Id;
+  elements: Element[];
+}
+
+export type RequestData<T> = RawDataContainer<T>;
 
 export class HttpMethod<T> extends Method {
   interfaceName = "HttpMethod";
@@ -141,29 +222,24 @@ export class HttpMethod<T> extends Method {
   url: string;
   requestType: RequestType;
   requestData?: RequestData<T>;
-  clientStateId?: string;
+  forwardedClientInfo?: ClientInfo<any>;
+  stateIds?: Id[];
   onError?: Method[];
   onSuccess?: Method[];
-
-  static builder<T>(): IBuilder<HttpMethod<T>> {
-    return Builder(HttpMethod<T>);
-  }
 }
 
-export type ClientInfo<T> = DataContainer<T>;
+export type HttpMethodBuilder<T> = IBuilder<HttpMethod<T>>;
 
-export interface HttpMethodRequestBody<T, S extends ElementState<any>, G extends ClientInfo<any>> {
-  requestData?: RequestData<T>;
-  elementState?: S;
-  clientInfo?: G;
+export type ClientInfo<T> = RawDataContainer<T>;
+
+export interface HttpMethodRequestBody<RequestDataType, ClientInfoType> {
+  elementStates?: DataContainer[];
+  requestData?: RequestData<RequestDataType>;
+  clientInfo?: ClientInfo<ClientInfoType>;
 }
 
 export class NavigateMethod extends Method {
   interfaceName = "NavigateMethod";
 
   url: string;
-
-  static builder(): IBuilder<NavigateMethod> {
-    return Builder(NavigateMethod);
-  }
 }

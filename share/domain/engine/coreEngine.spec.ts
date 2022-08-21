@@ -1,37 +1,40 @@
+import {
+  Button,
+  Image,
+  InputState,
+  Layout,
+  Text,
+} from "../../elements/components/widgets";
 import { makeStore } from "../../store";
 import {
-  ButtonElement,
-  ImageElement,
-  LayoutElement,
-  PlaceholderElement,
+  Placeholder,
   RenderElementMethod,
-  StateHolderElement,
-  TextElement,
-  UpdateElementMethod, UpdateInListElementMethod,
+  UpdateElementMethod,
+  UpdateInListElementMethod,
 } from "../interfaces";
 import { engineDispatch } from "./coreEngine";
-import { ROOT_ID, actions } from "./index";
+import { ROOT_ID } from "./index";
 
 describe("coreEngine", () => {
-  test("engineDispatch should update the store correctly", async () => {
+  test("should update the store correctly", async () => {
     const store = makeStore({});
 
     await engineDispatch(store.dispatch, [
       RenderElementMethod.builder()
         .element(
-          LayoutElement.builder()
+          Layout.builder()
             .id(ROOT_ID)
-            .elements([
-              TextElement.builder().id("text_element").build(),
-              ImageElement.builder()
+            .items([
+              Text.builder().id("text_element").build(),
+              Image.builder()
                 .id("image_element")
                 .src("https://google.com")
                 .build(),
-              ButtonElement.builder().id("button_element").build(),
-              PlaceholderElement.builder().id("placeholder_element").build(),
-              StateHolderElement.builder()
+              Button.builder().id("button_element").build(),
+              Placeholder.builder().id("placeholder_element").build(),
+              InputState.builder()
                 .id("stateholder_element")
-                .elementState({ data: ["string_data"] })
+                .value("string_data")
                 .build(),
             ])
             .build()
@@ -40,35 +43,64 @@ describe("coreEngine", () => {
     ]);
 
     expect(store.getState()).toMatchSnapshot();
+  });
+
+  test("should support override element with RenderElementMethod", async () => {
+    const store = makeStore({});
 
     await engineDispatch(store.dispatch, [
       RenderElementMethod.builder()
         .element(
-          ImageElement.builder()
-            .id("image_element")
-            .src("https://amazon.com")
+          Layout.builder()
+            .id(ROOT_ID)
+            .items([
+              Image.builder()
+                .id("image_element")
+                .src("https://google.com")
+                .build(),
+              Placeholder.builder().id("placeholder_element").build(),
+            ])
             .build()
         )
         .build(),
     ]);
 
-    expect(store.getState()).toMatchSnapshot();
-
     await engineDispatch(store.dispatch, [
       RenderElementMethod.builder()
         .element(
-          LayoutElement.builder()
+          Layout.builder()
             .id("placeholder_element")
-            .elements([
-              TextElement.builder()
-                .id("new_text_element")
-                .message("new text element message")
+            .items([
+              Text.builder().id("text_element").build(),
+              Button.builder().id("button_element").build(),
+            ])
+            .build()
+        )
+        .build(),
+    ]);
+
+    expect(store.getState()).toMatchSnapshot();
+  });
+
+  test("should remove element with RenderElementMethod", async () => {
+    const store = makeStore({});
+
+    await engineDispatch(store.dispatch, [
+      RenderElementMethod.builder()
+        .element(
+          Layout.builder()
+            .id(ROOT_ID)
+            .items([
+              Image.builder()
+                .id("image_element")
+                .src("https://google.com")
                 .build(),
-              PlaceholderElement.builder()
-                .id("nested_placeholder_element_1")
-                .build(),
-              PlaceholderElement.builder()
-                .id("nested_placeholder_element_2")
+              Layout.builder()
+                .id("placeholder_element")
+                .items([
+                  Text.builder().id("text_element").build(),
+                  Button.builder().id("button_element").build(),
+                ])
                 .build(),
             ])
             .build()
@@ -76,55 +108,76 @@ describe("coreEngine", () => {
         .build(),
     ]);
 
-    store.dispatch(
-      actions.delElement({
-        id: "placeholder_element",
-        interfaceName: PlaceholderElement.getInterfaceName(),
-      })
-    );
+    await engineDispatch(store.dispatch, [
+      RenderElementMethod.builder()
+        .element(Placeholder.builder().id("placeholder_element").build())
+        .build(),
+    ]);
 
     expect(store.getState()).toMatchSnapshot();
+  });
+
+  test("should support list replacement with same id", async () => {
+    const store = makeStore({});
 
     await engineDispatch(store.dispatch, [
-      UpdateElementMethod.builder()
-        .id("nested_placeholder_element_1")
+      RenderElementMethod.builder()
         .element(
-          ImageElement.builder()
-            .id("new_image_element")
+          Layout.builder()
+            .id(ROOT_ID)
+            .items([
+              Text.builder().id("text_element_1").build(),
+              Placeholder.builder().id("placeholder_element").build(),
+            ])
             .build()
         )
         .build(),
     ]);
-
-    store.dispatch(
-      actions.delElement({
-        id: "nested_placeholder_element_1",
-        interfaceName: PlaceholderElement.getInterfaceName(),
-      })
-    );
-
-    expect(store.getState()).toMatchSnapshot();
 
     await engineDispatch(store.dispatch, [
       UpdateInListElementMethod.builder()
-        .id("nested_placeholder_element_2")
+        .id("placeholder_element")
         .elements([
-          ImageElement.builder()
-            .id("new_image_element_1")
-            .build(),
-          ImageElement.builder()
-            .id("new_image_element_2")
-            .build()
+          Text.builder().id("text_element_2").build(),
+          Placeholder.builder().id("placeholder_element").build(),
         ])
         .build(),
     ]);
 
-    store.dispatch(
-      actions.delElement({
-        id: "nested_placeholder_element_2",
-        interfaceName: PlaceholderElement.getInterfaceName(),
-      })
-    );
+    expect(store.getState()).toMatchSnapshot();
+  });
+
+  test("should support nested element update with same id", async () => {
+    const store = makeStore({});
+
+    await engineDispatch(store.dispatch, [
+      RenderElementMethod.builder()
+        .element(
+          Layout.builder()
+            .id(ROOT_ID)
+            .items([
+              Image.builder().id("image_element_1").build(),
+              Placeholder.builder().id("placeholder_element").build(),
+            ])
+            .build()
+        )
+        .build(),
+    ]);
+
+    await engineDispatch(store.dispatch, [
+      UpdateElementMethod.builder()
+        .id("placeholder_element")
+        .element(
+          Layout.builder()
+            .id("nested_layout_element")
+            .items([
+              Image.builder().id("image_element_2").build(),
+              Placeholder.builder().id("placeholder_element").build(),
+            ])
+            .build()
+        )
+        .build(),
+    ]);
 
     expect(store.getState()).toMatchSnapshot();
   });

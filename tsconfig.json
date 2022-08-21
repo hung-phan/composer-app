@@ -23,7 +23,13 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
   "exclude": [
     ".next",
@@ -34,6 +40,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    ".next/types/**/*.ts"
   ]
 }

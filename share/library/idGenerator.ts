@@ -1,6 +1,8 @@
+import { ulid } from "ulid";
+
 export type Id = string;
 
-export default function getNewId(): Id {
+export function getRandomUUID(): Id {
   if (process.env.ENVIRONMENT === "client") {
     return window.crypto.randomUUID();
   }
@@ -8,4 +10,8 @@ export default function getNewId(): Id {
   const cryptoLib = require("crypto");
 
   return cryptoLib.randomUUID();
+}
+
+export function getRandomSortableId(): Id {
+  return ulid();
 }

@@ -1,32 +1,30 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { actions, engineDispatch } from "../domain/engine";
+import { engineDispatch } from "../domain/engine";
 import { Element } from "../domain/interfaces";
+import useEffectOnce from "./useEffectOnce";
 
-export default function useElementEvent(element: Element): void {
+export default function useElementEvent(element?: Element): void {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (element && element.onCreate) {
+  function lifeCycleFunc() {
+    if (element) {
       engineDispatch(dispatch, element.onCreate);
     }
 
     return () => {
       if (element) {
-        if (element.onDestroy) {
-          engineDispatch(dispatch, element.onDestroy);
-        }
-
-        dispatch(
-          actions.delElement({
-            id: element.id,
-            interfaceName: element.interfaceName,
-          })
-        );
+        engineDispatch(dispatch, element.onDestroy);
       }
     };
     // DO NOT modify deps array, it is there to prevent update
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    useEffectOnce(lifeCycleFunc);
+  } else {
+    useEffect(lifeCycleFunc, []);
+  }
 }

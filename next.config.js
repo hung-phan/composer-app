@@ -1,6 +1,8 @@
 const _ = require("lodash");
 const webpack = require("webpack");
-const withPWA = require("next-pwa");
+const withPWA = require("next-pwa")({
+  dest: "public",
+});
 
 const plugins = [];
 
@@ -9,10 +11,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 module.exports = _.flow(...plugins)({
-  pwa: {
-    dest: "public",
-  },
-
   serverRuntimeConfig: {
     IS_SERVER: true,
   },

@@ -4,3 +4,5 @@ declare module "http" {
     public query: { readonly [key: string]: string };
   }
 }
+
+export type Clazz<T> = new (...args: unknown[]) => T;

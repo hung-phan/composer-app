@@ -7,3 +7,5 @@ fi
 if [ -z "${PORT}" ]; then
   export PORT=3000
 fi
+
+export DASHBOARD_BUCKET_NAME=composer

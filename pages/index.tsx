@@ -1,25 +1,12 @@
-import { DefaultRootState } from "react-redux";
-import { AnyAction } from "redux";
-import { ThunkDispatch } from "redux-thunk";
+import createServersidePropsForEndpoint from "server/infrastructure/application/serverProps";
+import { HttpMethod } from "share/domain/interfaces";
+import TemplateManager from "share/elements/TemplateManager";
 
-import { actions } from "../share/domain/engine";
-import { HttpMethod } from "../share/domain/interfaces";
-import RootElement from "../share/elements/RootElement";
-import { wrapper } from "../share/store";
-
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async () => {
-    await (store.dispatch as ThunkDispatch<DefaultRootState, any, AnyAction>)(
-      actions.callEndpoint.action(
-        HttpMethod.builder()
-          .url("/api/skill/home/showHome")
-          .requestType("GET")
-          .build()
-      )
-    );
-
-    return { props: {} };
-  }
+export const getServerSideProps = createServersidePropsForEndpoint(() =>
+  HttpMethod.builder()
+    .url("/api/skills/dashboard/showDashboard")
+    .requestType("GET")
+    .build()
 );
 
-export default RootElement;
+export default TemplateManager;

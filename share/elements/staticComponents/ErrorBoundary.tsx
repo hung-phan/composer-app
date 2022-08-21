@@ -1,6 +1,5 @@
 import { Component } from "react";
 
-
 export default class ErrorBoundary extends Component<
   { children: JSX.Element },
   { hasError: boolean }
