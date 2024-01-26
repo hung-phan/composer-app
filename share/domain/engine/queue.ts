@@ -37,14 +37,14 @@ export class TaskQueue {
       return;
     }
 
-    if (!(this.queued && this.running)) {
+    if (!this.queued && !this.running) {
       this.queued = true;
 
       scheduleImmediately(() => {
-        let count = 0;
-
-        this.running = true;
         this.queued = false;
+        this.running = true;
+
+        let count = 0;
 
         while (this.tasks.length > 0 && count < this.batchSize) {
           const task: Task<any> = this.tasks.pop()!;
